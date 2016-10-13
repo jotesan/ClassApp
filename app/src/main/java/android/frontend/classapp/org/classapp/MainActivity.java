@@ -1,56 +1,59 @@
 package android.frontend.classapp.org.classapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private ListView listViewTask;
+    private ArrayList<Classes> clases;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //super.onCreate(savedInstanceState);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        createList();
-    }
-    /*
-    * 1.4.2 MainActivity
-Esta es la ventana principal y debe cumplir lo siguiente:
- Usar un FrameLayout
- Tener un ListView
- Cada ítem debe tener un diseño similar al que se muestra
- Debe haber una clase que extienda BaseAdapter para gestionar la lista
- Cada Item debe ser un Pojo específico de cada grupo: ver especificaciones de Backend
-para las Entidades: Idea, Beat, Class, Meetup o Event, según tu grupo.
- Al hacer clic en el ítem debe llevar al detalle: Intent con parámetro
-    *
-    * */
 
 
-    public void createList() {
+        setContentView(R.layout.list_menu);
+        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       // setTitle("CLASES");
+        clases = new ArrayList<Classes>();
+        clases.add(new Classes("HOLA",R.drawable.imagen,"SOY CLASE 1"));
+        clases.add(new Classes("HOLA",R.drawable.imagen,"SOY CLASE 2"));
+        clases.add(new Classes("HOLA",R.drawable.imagen,"SOY CLASE 3"));
+        AdapterBase AB = new AdapterBase(this, clases);
+        listViewTask = (ListView) findViewById(R.id.listView);
+        listViewTask.setAdapter(AB);
 
-        String[] names = {"DOH", "HADOUKEN", "ITS A TRAP", "IM BATMAN", "FATALITY", "COMBO BREAKER", "GAAAAY", "DARTH VADER", "STAR WARS", "HOMER BOCADILLO", "KAMEHAMEHA", "NYANCAT"};
 
-        List<String> subjectList = new ArrayList<String>(Arrays.asList(names));
+       /* listViewTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+               // intent.putExtra("imageViewIcon", clases.get(i).getImagen());
+                intent.putExtra("textViewName", clases.get(i).getTitulo());
+                intent.putExtra("textViewDetails", clases.get(i).getDescripion());
 
-        ListView listViewSubjects = (ListView) findViewById(R.id.lista);
-        ArrayAdapter listViewAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.activity_main, R.id.marco, names);
-        listViewSubjects.setAdapter(listViewAdapter);
-
-
-        listViewSubjects.setOnItemClickListener(new AdapterView.OnItemClickListener() {public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-           //algoXD
+                startActivity(intent);
 
             }
+        });*/
 
-
-        });
 
     }
+
+
+
+
+
+
 }

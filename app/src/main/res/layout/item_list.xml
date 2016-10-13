@@ -6,7 +6,7 @@ android:layout_height="wrap_content">
 <ImageView
     android:layout_width="74dp"
     android:layout_height="74dp"
-    android:src="@drawable/images"
+
     android:id="@+id/imageViewIcon" />
 
     <GridLayout
@@ -39,7 +39,7 @@ android:layout_height="wrap_content">
                 android:layout_width="179dp"
                 android:layout_height="match_parent"
                 android:text="New Text"
-                android:id="@+id/textViewmark"
+                android:id="@+id/textViewDetails"
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
     </GridLayout>
