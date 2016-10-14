@@ -35,18 +35,18 @@ public class MainActivity extends AppCompatActivity {
         listViewTask.setAdapter(AB);
 
 
-       /* listViewTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       listViewTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-               // intent.putExtra("imageViewIcon", clases.get(i).getImagen());
-                intent.putExtra("textViewName", clases.get(i).getTitulo());
-                intent.putExtra("textViewDetails", clases.get(i).getDescripion());
+              intent.putExtra("I", clases.get(i).getImagen());
+                intent.putExtra("N", clases.get(i).getTitulo());
+                intent.putExtra("D", clases.get(i).getDescripion());
 
                 startActivity(intent);
 
             }
-        });*/
+        });
 
 
     }
