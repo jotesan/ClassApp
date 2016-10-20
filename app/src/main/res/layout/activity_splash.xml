@@ -11,12 +11,17 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/imageView"
+
+        android:onClick="open"
+
+
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:src="@mipmap/classapp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@mipmap/classapp"
-        android:onClick="open"
-        />
+        android:layout_alignParentTop="true" />
+
 </RelativeLayout>
