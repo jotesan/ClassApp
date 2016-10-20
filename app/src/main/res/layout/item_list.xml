@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="horizontal"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+<ImageView
+    android:layout_width="74dp"
+    android:layout_height="74dp"
+
+    android:id="@+id/imageViewIcon" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_row="0"
+            android:layout_column="0">
+
+            <TextView
+                android:layout_width="184dp"
+                android:layout_height="match_parent"
+                android:text="New Text"
+                android:id="@+id/textViewname"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:layout_row="1"
+            android:layout_column="0">
+
+            <TextView
+                android:layout_width="179dp"
+                android:layout_height="match_parent"
+                android:text="New Text"
+                android:id="@+id/textViewDetails"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </GridLayout>
+
+</LinearLayout>
