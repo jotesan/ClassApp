@@ -80,11 +80,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_star:
-                Log.d("PELLODEBUG","Star selected");
+            case R.id.action_about:
+                //Log.d("PELLODEBUG","Star selected");
+                // Intent intentAbout = new Intent(this, R.layout.activity_about);
+                // startActivity(intentAbout);
                 return true;
             case R.id.action_settings:
-                Log.d("PELLODEBUG","Settings selected");
+
+
+                // Intent intentSettings = new Intent(this, R.layout.activity_settings);
+                // startActivity(intentSettings);
                 return true;
           /*  case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
