@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/ tools"
     tools:context=".MainActivity">
 <item
-    android:id="@+id/action_star"
+    android:id="@+id/action_about"
     android:icon="@android:drawable/btn_star"
     android:title="ABOUT"
 />

@@ -5,6 +5,7 @@ package android.frontend.classapp.org.classapp;
  */
 public class Classes {
 
+    private Integer id;
     private String titulo;
     private String descripion;
     private int imagen;
