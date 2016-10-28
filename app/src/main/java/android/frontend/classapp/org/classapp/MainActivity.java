@@ -13,6 +13,9 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView listViewTask;
     private ArrayList<Classes> clases;
-
-
 
 
 
@@ -42,13 +43,40 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setTitle("MainActivity");
 
 
-        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-       // setTitle("CLASES");
-        clases = new ArrayList<Classes>();
-        clases.add(new Classes("HOLA",R.drawable.imagen,"SOY CLASE 1"));
-        clases.add(new Classes("HOLA",R.drawable.imagen,"SOY CLASE 2"));
-        clases.add(new Classes("HOLA",R.drawable.imagen,"SOY CLASE 3"));
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       setTitle("CLASES");
+
         AdapterBase AB = new AdapterBase(this, clases);
+
+
+
+        WebRequest webRequest = new WebRequest();
+
+        if (webRequest.get("http://classapp.org/web/admin/api/class")) {
+            System.out.println("OK Total: " + webRequest.getResponseString());
+        } else {
+            System.out.println("Error: " + webRequest.getExceptionMessage());
+        }
+
+        JSONArray books = null;
+        try {
+            books = new JSONArray(webRequest.getResponseString());
+
+            for (int i = 0; i < books.length(); i++) {
+                String bla =  books.getJSONObject(i).getInt("name") + "";
+                clases.add(new Classes( books.getJSONObject(i).getString("name"),R.drawable.imagen,books.getJSONObject(i).getString("description")));
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
         listViewTask = (ListView) findViewById(R.id.listView);
         listViewTask.setAdapter(AB);
 

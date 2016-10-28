@@ -23,6 +23,9 @@
 
         <activity android:name=".DetailActivity" android:parentActivityName=".MainActivity"  />
 
+        <uses-permission android:name="android.permission.INTERNET" />
+
+
 
 
 
