@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setTitle("MainActivity");
 
 
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       // this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
        setTitle("CLASES");
 
         AdapterBase AB = new AdapterBase(this, clases);
@@ -53,39 +53,42 @@ public class MainActivity extends AppCompatActivity {
         WebRequest webRequest = new WebRequest();
 
         if (webRequest.get("http://classapp.org/web/admin/api/class")) {
-            System.out.println("OK Total: " + webRequest.getResponseString());
+            //System.out.println("OK Total: " + webRequest.getResponseString());
+
         } else {
-            System.out.println("Error: " + webRequest.getExceptionMessage());
+           // System.out.println("Error: " + webRequest.getExceptionMessage());
         }
 
-        JSONArray books = null;
+
+        JSONArray classesJson = null;
+
+
         try {
-            books = new JSONArray(webRequest.getResponseString());
-
-            for (int i = 0; i < books.length(); i++) {
-                String bla =  books.getJSONObject(i).getInt("name") + "";
-                clases.add(new Classes( books.getJSONObject(i).getString("name"),R.drawable.imagen,books.getJSONObject(i).getString("description")));
-
-            }
+            classesJson = new JSONArray(webRequest.getResponseString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        for (int i = 0; i < classesJson.length(); i++) {
 
+            try {
+                clases.add(new Classes( classesJson.getJSONObject(i).getString("name"),R.drawable.imagen,classesJson.getJSONObject(i).getString("description")));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-
+        }
 
 
 
         listViewTask = (ListView) findViewById(R.id.listView);
         listViewTask.setAdapter(AB);
 
-
-       listViewTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-              intent.putExtra("I", clases.get(i).getImagen());
+                intent.putExtra("I", clases.get(i).getImagen());
                 intent.putExtra("N", clases.get(i).getTitulo());
                 intent.putExtra("D", clases.get(i).getDescripion());
 
@@ -93,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+
 
 
     }
