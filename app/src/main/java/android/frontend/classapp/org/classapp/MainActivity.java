@@ -36,72 +36,62 @@ public class MainActivity extends AppCompatActivity {
         //super.onCreate(savedInstanceState);
 
         super.onCreate(savedInstanceState);
-
         // setContentView(R.layout.activity_main);
         setContentView(R.layout.list_menu);
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("MainActivity");
-
-
         // this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setTitle("CLASES");
+        //accessData(null);
+
+        clases = new ArrayList<Classes>();
 
 
-     //accessData(null);
+        JsonAsyncTask jsonAsynTask = new JsonAsyncTask(this);
+
+        jsonAsynTask.attach(this);
+
+        jsonAsynTask.execute("http://classapp.org/web/admin/api/class");
+
+        clases = jsonAsynTask.clases;
+        jsonAsynTask.detach();
 
 
 
+
+
+
+
+        clases.add(new Classes("HOLA", R.drawable.imagen, "SOY CLASE 1"));
+        clases.add(new Classes("HOLA", R.drawable.imagen, "SOY CLASE 2"));
+        clases.add(new Classes("HOLA", R.drawable.imagen, "SOY CLASE 3"));
         AdapterBase AB = new AdapterBase(this, clases);
+        listViewTask = (ListView) findViewById(R.id.listView);
 
 
-
-
-
-
-
-
-
-        JSONArray classesJson =null;
-        clases =  new ArrayList<Classes>();
-        // Log.d("PELLODEBUG","URL passed to AsyncTask: " + url[0]);
-        //String jsonData ="{'data': {'technologies':[{name : 'Backbone', description : 'JS MVC Framework' , difficulty: 6}, {name : 'Angular', description: 'JS MVC Framework' ,difficulty: 8}, {name : 'CouchDB', description: 'noSQL Database' ,dificultty: 9} ]}, 'responseDetails': null, 'responseStatus': 200} ";
-        String jsonData = "";
-
+        JSONArray classesJson = null;
 
         WebRequest webRequest = new WebRequest(null);
+
+
+
         try {
 
             if (webRequest.get("http://classapp.org/web/admin/api/class")) {
-                // Log.d("PELLODEBUG","Code:" + webRequest.getResponseCode() + "\nReceived data: " + webRequest.getResponseString());
-                //this.parseJson(webRequest.getResponseString());
-                classesJson = new JSONArray(webRequest.getResponseString());
-                for (int i = 0; i < classesJson.length(); i++) {
-                    try {
-                        clases.add(new Classes(classesJson.getJSONObject(i).getString("name"), R.drawable.imagen, classesJson.getJSONObject(i).getString("description")));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
 
 
             } else {
-                Log.e("PELLODEBUG","Error in request: " + webRequest.getExceptionMessage());
+                Log.e("PELLODEBUG", "Error in request: " + webRequest.getExceptionMessage());
             }
         } catch (Exception e) {
-            Log.d("PELLODEBUG","Exception processing JSON: " + e.getMessage());
+            Log.d("PELLODEBUG", "Exception processing JSON: " + e.getMessage());
         }
-        // With this call we notify to progressUpdate
-        Log.d("PELLODEBUG","doInBackbround publishes progress");
 
 
 
 
-
-        listViewTask = (ListView) findViewById(R.id.listView);
         listViewTask.setAdapter(AB);
 
         listViewTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -119,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
 
 
@@ -129,21 +120,8 @@ public class MainActivity extends AppCompatActivity {
 
         jsonAsynTask.execute("http://classapp.org/web/admin/api/class");
 
-
-        final ArrayList<Classes> clases ;//= new ArrayList <Classes>();
         clases = jsonAsynTask.clases;
         jsonAsynTask.detach();
-        AdapterBase AB = new AdapterBase(MainActivity.this, clases );
-
-        listViewTask = new ListView(this);
-
-        listViewTask.setAdapter(AB);
-
-
-
-
-
-
 
     }
 
