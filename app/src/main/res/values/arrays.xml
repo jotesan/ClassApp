@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_sync_frequency_titles">FRECUENCIA SINCRONIZACION</string-array>
+    <string-array name="pref_sync_frequency_values">VALORES</string-array>
+    <string-array name="pref_example_list_titles">LISTA</string-array>
+    <string-array name="pref_example_list_values">VALORES LISTA</string-array>
+</resources>

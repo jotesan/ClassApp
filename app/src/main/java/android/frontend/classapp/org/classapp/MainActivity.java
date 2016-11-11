@@ -1,7 +1,9 @@
 package android.frontend.classapp.org.classapp;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -28,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public ListView listViewTask;
-   private ArrayList<Classes> clases;
-
+   public ArrayList<Classes> clases;
+     AlertDialog.Builder dialog ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,58 +44,28 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("MainActivity");
-        // this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setTitle("CLASES");
-        //accessData(null);
+        //
 
+dialog= new AlertDialog.Builder(this);
         clases = new ArrayList<Classes>();
-
-
-        JsonAsyncTask jsonAsynTask = new JsonAsyncTask(this);
-
-        jsonAsynTask.attach(this);
-
-        jsonAsynTask.execute("http://classapp.org/web/admin/api/class");
-
-        clases = jsonAsynTask.clases;
-        jsonAsynTask.detach();
+        dialog.setTitle("INFORMACION");
+        accessData(null);
 
 
 
 
+        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {dialog.cancel();}
+        });
 
+        dialog.show();
 
-
-        clases.add(new Classes("HOLA", R.drawable.imagen, "SOY CLASE 1"));
-        clases.add(new Classes("HOLA", R.drawable.imagen, "SOY CLASE 2"));
-        clases.add(new Classes("HOLA", R.drawable.imagen, "SOY CLASE 3"));
         AdapterBase AB = new AdapterBase(this, clases);
+
         listViewTask = (ListView) findViewById(R.id.listView);
-
-
-        JSONArray classesJson = null;
-
-        WebRequest webRequest = new WebRequest(null);
-
-
-
-        try {
-
-            if (webRequest.get("http://classapp.org/web/admin/api/class")) {
-
-
-            } else {
-                Log.e("PELLODEBUG", "Error in request: " + webRequest.getExceptionMessage());
-            }
-        } catch (Exception e) {
-            Log.d("PELLODEBUG", "Exception processing JSON: " + e.getMessage());
-        }
-
-
-
-
         listViewTask.setAdapter(AB);
-
         listViewTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -108,27 +80,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
     }
-
 
     public void accessData (View view) {
-         JsonAsyncTask jsonAsynTask = new JsonAsyncTask(this);
-        //jsonAsynTask.execute("http://wzw.io/meetup.json");
-        jsonAsynTask.attach(this);
-
-        jsonAsynTask.execute("http://classapp.org/web/admin/api/class");
-
-        clases = jsonAsynTask.clases;
-        jsonAsynTask.detach();
-
+         JsonAsyncTask jsonAsnTask = new JsonAsyncTask(this);
+        jsonAsnTask.execute("http://wzw.io/web/admin/api/meetup");//("http://bizgen.co/web/admin/api/idea");//("http://classapp.org/web/admin/api/class");
     }
-
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -141,19 +98,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_about:
-                //Log.d("PELLODEBUG","Star selected");
-                // Intent intentAbout = new Intent(this, R.layout.activity_about);
-                // startActivity(intentAbout);
+
+                 Intent intentAbout = new Intent(MainActivity.this,aboutActivity.class);
+                 startActivity(intentAbout);
                 return true;
             case R.id.action_settings:
 
 
-                // Intent intentSettings = new Intent(this, R.layout.activity_settings);
-                // startActivity(intentSettings);
+                Intent intentSettings = new Intent(MainActivity.this, SettingsActivity.class);
+                 startActivity(intentSettings);
                 return true;
-          /*  case android.R.id.home:
+          case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
-                return true;*/
+                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

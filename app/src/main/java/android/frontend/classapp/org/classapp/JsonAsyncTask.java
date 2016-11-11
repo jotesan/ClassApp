@@ -1,5 +1,6 @@
 package android.frontend.classapp.org.classapp;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  * Created by GATO-GOKU on 06/11/2016.
  */
 
-public class JsonAsyncTask extends AsyncTask<String,String, ArrayList<Classes>> {
+public class JsonAsyncTask extends AsyncTask<String,String, Void> {
 
     private MainActivity mainActivity;
 
@@ -63,35 +64,44 @@ public class JsonAsyncTask extends AsyncTask<String,String, ArrayList<Classes>> 
      * notify through publishProgress()
      */
 
-    public  ArrayList<Classes> clases ;
+
     @Override
 
 
 
-    protected ArrayList<Classes> doInBackground(String... url) {
+    protected Void doInBackground(String... url) {
+
+
 
         JSONArray classesJson =null;
-        clases =  new ArrayList<Classes>();
+        mainActivity.clases =  new ArrayList<Classes>();
        // Log.d("PELLODEBUG","URL passed to AsyncTask: " + url[0]);
         //String jsonData ="{'data': {'technologies':[{name : 'Backbone', description : 'JS MVC Framework' , difficulty: 6}, {name : 'Angular', description: 'JS MVC Framework' ,difficulty: 8}, {name : 'CouchDB', description: 'noSQL Database' ,dificultty: 9} ]}, 'responseDetails': null, 'responseStatus': 200} ";
-        String jsonData = "";
+
+         String jsonData = "";
         try {
 
+
+
+
+
+
             if (webRequest.get(url[0])) {
-               // Log.d("PELLODEBUG","Code:" + webRequest.getResponseCode() + "\nReceived data: " + webRequest.getResponseString());
-                this.parseJson(webRequest.getResponseString());
-                classesJson = new JSONArray(webRequest.getResponseString());
+                jsonData = webRequest.getResponseString();
+                mainActivity.dialog.setMessage("OK Total: " + "XD");
+              this.parseJson(jsonData);//webRequest.getResponseString());
+                classesJson = new JSONArray(jsonData);//webRequest.getResponseString());
                 for (int i = 0; i < classesJson.length(); i++) {
                     try {
-                        clases.add(new Classes(classesJson.getJSONObject(i).getString("name"), R.drawable.imagen, classesJson.getJSONObject(i).getString("description")));
+                        mainActivity.clases.add(new Classes(classesJson.getJSONObject(i).getString("name"), R.drawable.imagen, classesJson.getJSONObject(i).getString("description")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-                return clases;
 
             } else {
-                Log.e("PELLODEBUG","Error in request: " + webRequest.getExceptionMessage());
+                mainActivity.dialog.setMessage("Error: " + webRequest.getExceptionMessage());
+
             }
         } catch (Exception e) {
             Log.d("PELLODEBUG","Exception processing JSON: " + e.getMessage());
@@ -99,45 +109,14 @@ public class JsonAsyncTask extends AsyncTask<String,String, ArrayList<Classes>> 
         // With this call we notify to progressUpdate
         Log.d("PELLODEBUG","doInBackbround publishes progress");
 
+
+
+
+
         // TODO Auto-generated method stub
 
 
 return null;
-
-
-
-
-
-       // WebRequest webRequest = new WebRequest(this);
-
-       // AlertDialog.Builder dialog = new AlertDialog.Builder();
-
-
-       /* if (webRequest.get(url[0])) {
-            //System.out.println("OK Total: " + webRequest.getResponseString());
-           // dialog.setMessage("OK Total: " + webRequest.getResponseString());
-
-        } else {
-            // System.out.println("Error: " + webRequest.getExceptionMessage());
-          //  dialog.setMessage("Error: " + webRequest.getExceptionMessage());
-        }
-
-       // dialog.setTitle("INFORMACION");
-
-        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });*/
-
-
-
-
-        //ArrayList<Classes> clases;
-
-
-
-
 
     }
 
@@ -166,12 +145,8 @@ return null;
     public void parseJson (String cadenaJSON) throws IllegalStateException,
             IOException, JSONException, NoSuchAlgorithmException {
 
-
         String name = "";
         String description = "";
-
-
-
 
         // and from that object we get the array of data we need
         JSONArray registros = new JSONArray(cadenaJSON);

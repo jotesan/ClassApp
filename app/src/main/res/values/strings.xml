@@ -1,3 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ClassApp</string>
+    <string name="pref_title_social_recommendations">1</string>
+    <string name="pref_default_display_name">NOMBRE DESCONOCIDO</string>
+    <string name="pref_title_display_name">CONFIGURACIONES</string>
+    <string name="pref_title_add_friends_to_messages">FRI</string>
+    <string name="pref_header_general">CLASSAPP</string>
+    <string name="pref_header_notifications">NUEVA NOTIFICACION</string>
+    <string name="sincronizacion">SINCRONIZACION</string>
+    <string name="pref_title_new_message_notifications">ACTIVAR NOTIFICACIONES</string>
+    <string name="pref_title_ringtone">TONO DE NOTIFICACION</string>
+    <string name="pref_title_vibrate">VIBRACION</string>
+    <string name="pref_title_system_sync_settings">SINCRONIZACION</string>
+    <string name="app_name">CLASSAPP</string>
+    <string name="pref_title_sync_frequency">10</string>
+    <string name="pref_description_social_recommendations">SOC</string>
+    <string name="title_activity_settings">SET</string>
+    <string name="pref_ringtone_silent">RING</string>
 </resources>
+

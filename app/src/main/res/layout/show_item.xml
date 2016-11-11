@@ -5,43 +5,37 @@
     android:layout_height="match_parent"
     android:weightSum="1">
     <ImageView
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:id="@+id/imageView2"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.46"
-        android:maxWidth="230dp"
-        android:maxHeight="233dp"
+        android:maxWidth="130dp"
+        android:maxHeight="133dp"
         android:nestedScrollingEnabled="false" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50px"
         android:text="New Text"
         android:id="@+id/textView1"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.03"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_below="@+id/imageView2"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.03" />
+
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50px"
         android:text="New Text"
         android:id="@+id/textView3"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.03"
-        android:textAlignment="center" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.03" />
+        android:textAlignment="center"
+        android:layout_below="@+id/textView1"/>
+
+
 
 </LinearLayout>
