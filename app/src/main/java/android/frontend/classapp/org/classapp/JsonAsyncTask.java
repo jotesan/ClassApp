@@ -130,6 +130,8 @@ return null;
         Toast.makeText(this.mainActivity, "Finished Async Task", Toast.LENGTH_SHORT).show();
         Log.d("PELLODEBUG","onPostExecute was called: ");
         //this.mainActivity.getProgressBar1().setVisibility(ProgressBar.INVISIBLE);
+        mainActivity.display();
+        mainActivity.notifyme();
 
     }
 
