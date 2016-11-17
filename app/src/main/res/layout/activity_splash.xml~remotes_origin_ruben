@@ -7,7 +7,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-<<<<<<< HEAD:app/src/main/res/layout/activity_splash.xml
     tools:context=".SplashActivity">
 
     <ImageView
@@ -20,12 +19,9 @@
 
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:src="@drawable/imagen"
+        android:src="@mipmap/classapp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
-=======
-    tools:context="android.frontend.classapp.org.classapp.MainActivity">
->>>>>>> remotes/origin/ruben:app/src/main/res/layout/activity_main.xml
 
 </RelativeLayout>
