@@ -1,6 +1,5 @@
 package android.frontend.classapp.org.classapp;
 
-import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -16,20 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.JsonToken;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -175,7 +165,7 @@ dialog= new AlertDialog.Builder(this);
     }
 
     public void accessData (View view) {
-         JsonAsyncTask jsonAsnTask = new JsonAsyncTask(this);
+         JsonAsyncTaskGet jsonAsnTask = new JsonAsyncTaskGet(this);
         jsonAsnTask.execute("http://classapp.org/web/admin/api/class");//("http://bizgen.co/web/admin/api/idea");//("http://classapp.org/web/admin/api/class");
     }
 
@@ -200,9 +190,17 @@ dialog= new AlertDialog.Builder(this);
                 Intent intentSettings = new Intent(MainActivity.this, SettingsActivity.class);
                  startActivity(intentSettings);
                 return true;
+
+            case R.id.action_post:
+
+                Intent intentPost = new Intent(MainActivity.this,Post.class);
+                startActivity(intentPost);
+                return true;
+
           case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
