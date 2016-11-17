@@ -3,6 +3,7 @@ package android.frontend.classapp.org.classapp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -134,7 +135,71 @@ public class WebRequest {
 		    }
 			return false;
 	}
-	
+
+	public boolean postJson (String urlString, String json) {
+		boolean result = false;
+		String line = "";
+		String postString = "";
+		String parameterValue = "";
+		responseString = "";
+		exceptionMessage = "";
+		InputStream in = null;
+
+		try {
+
+			URL url = new URL(urlString);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("User-Agent", userAgent);
+			connection.setRequestProperty("Accept", "application/json");
+			connection.setRequestProperty("Content-Type", "application/json");
+			connection.setDoOutput(true);
+			setCookies(connection);
+
+			OutputStreamWriter output = new OutputStreamWriter(
+					connection.getOutputStream());
+
+
+			// We set parameters one by one
+			   /* for (String parameterName : parameters.keySet()) {
+			    	parameterValue = URLEncoder.encode(parameters.get(parameterName),"UTF-8");
+			    	postString += parameterName + "=" +parameterValue +"&";
+			     }*/
+
+			output.write(json);
+			output.close();
+
+
+			// Now we get the response
+			int status = connection.getResponseCode();
+			in = (status >= 400)?connection.getErrorStream():connection.getInputStream();
+
+			// Get input stream from server
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+
+			getCookies(connection);
+			responseCode = connection.getResponseCode();
+
+			while ((line = reader.readLine()) != null) {
+				responseString += line;
+			}
+			reader.close();
+			return true;
+
+		} catch (IOException e) {
+			exceptionMessage = e.getMessage();
+			e.printStackTrace();
+		} catch (Exception e) {
+			exceptionMessage = e.getMessage();
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+
+
+
 	/**
 	 * sends previously saved cookies to server.
 	 * This method restores cookie name=value pairs from cookies hashtable
